@@ -1,8 +1,8 @@
 # CalculSecurise_DFA_DES
 
-#NOM            : SOMANTRI
-#PRENOM         : Naufal
-#No. Etudiant   : 22406972
+NOM            : SOMANTRI
+PRENOM         : Naufal
+No. Etudiant   : 22406972
 
 Bienvenue dans la simulation d'une attaque par injection de faute sur le dernier tour du DES!
 
