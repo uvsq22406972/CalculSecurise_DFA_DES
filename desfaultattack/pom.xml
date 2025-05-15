@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>desattack</groupId>
+  <artifactId>desfault-attack</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>desfault-attack</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <!-- Version de Java ciblée -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <!-- Version de JUnit Jupiter -->
+    <junit.jupiter.version>5.9.0</junit.jupiter.version>
+  </properties>
+
+  <dependencies>
+    <!-- Jsoup pour les requêtes HTTP/HTML -->
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.15.4</version>
+    </dependency>
+
+    <!-- JUnit 5 API pour écrire les tests -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- JUnit 5 Engine pour exécuter les tests -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Compiler plugin pour Java -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.0</version>
+
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+
+            <configuration>
+              <transformers>
+                <!-- écrit Main-Class: desattack.Main dans le MANIFEST -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>desattack.Main</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Surefire plugin pour exécuter JUnit 5 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M7</version>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <!-- pour désactiver le module path si besoin -->
+          <useModulePath>false</useModulePath>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
